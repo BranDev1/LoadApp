@@ -4,6 +4,6 @@
         <attr name="colorInactive" format="color"/>
         <attr name="colorActive" format="color"/>
         <attr name="textColor" format="color"/>
-        <attr name="text" format="string"/>
+        <attr name="arcColor" format="color"/>
     </declare-styleable>
 </resources>

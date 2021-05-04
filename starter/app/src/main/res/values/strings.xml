@@ -7,8 +7,18 @@
     <string name="notification_title">Udacity: Android Kotlin Nanodegree </string>
     <string name="notification_description">The Project 3 repository is downloaded</string>
     <string name="notification_button">See changes</string>
+    <string name="notification_channel_id" translatable="false">notification_channel</string>
+    <string name="notification_channel_name" translatable="true">Status</string>
+
+    <string name="radiobutton_option1">https://github.com/bumptech/glide</string>
+    <string name="radiobutton_option2">https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter</string>
+    <string name="radiobutton_option3">https://github.com/square/retrofit</string>
+
+    <string name="toast_error_no_radiobutton_selected">Please select one option</string>
 
     <string name="button_name">Click me</string>
     <string name="button_loading">We are loading </string>
     <string name="title_activity_detail">DetailActivity</string>
+
+
 </resources>
