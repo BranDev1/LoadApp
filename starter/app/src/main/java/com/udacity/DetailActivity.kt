@@ -1,6 +1,7 @@
 package com.udacity
 
 import android.app.NotificationManager
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -19,6 +20,19 @@ class DetailActivity : AppCompatActivity() {
                 NotificationManager::class.java
         ) as NotificationManager
         notificationManager.cancelAll()
+
+        val sharedPref = getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+        val fileName = sharedPref.getString(getString(R.string.saved_file_name_key), "null")
+        val status = sharedPref.getBoolean(getString(R.string.saved_file_status_key), false)
+
+        fileName_text.text = fileName
+        if (status) {
+            status_text.text = getString(R.string.success)
+        } else {
+            status_text.text = getString(R.string.fail)
+            status_text.setTextColor(getColor(R.color.red))
+        }
 
         okButton.setOnClickListener {
             finish()

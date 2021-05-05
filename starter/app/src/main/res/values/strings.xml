@@ -19,6 +19,11 @@
     <string name="button_name">Click me</string>
     <string name="button_loading">We are loading </string>
     <string name="title_activity_detail">DetailActivity</string>
+    <string name="saved_file_status_key">FILE_STATUS</string>
+    <string name="saved_file_name_key">FILE_NAME</string>
+    <string name="preference_file_key">PREFERENCE_FILE</string>
+    <string name="success">SUCCESS</string>
+    <string name="fail">FAIL</string>
 
 
 </resources>

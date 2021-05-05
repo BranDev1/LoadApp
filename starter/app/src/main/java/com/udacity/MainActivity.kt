@@ -3,7 +3,6 @@ package com.udacity
 import android.app.DownloadManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -12,10 +11,8 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -38,13 +35,31 @@ class MainActivity : AppCompatActivity() {
 
         custom_button.setOnClickListener {
             when (radioGroup.checkedRadioButtonId) {
+                R.id.radioButton1 -> {
+                    showNotification()
+                    saveStatus(R.string.radiobutton_option1, false)
+                }
                 R.id.radioButton2 -> download()
-                -1 -> Toast.makeText(applicationContext,
-                        resources.getString(R.string.toast_error_no_radiobutton_selected),
-                        Toast.LENGTH_SHORT)
-                        .show()
-                else -> showNotification()
+                R.id.radioButton3 -> {
+                    showNotification()
+                    saveStatus(R.string.radiobutton_option3, false)
+                }
+                else ->
+                    Toast.makeText(applicationContext,
+                            resources.getString(R.string.toast_error_no_radiobutton_selected),
+                            Toast.LENGTH_SHORT)
+                            .show()
             }
+        }
+    }
+
+    private fun saveStatus(fileName: Int, status: Boolean) {
+        val sharedPref = getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putBoolean(getString(R.string.saved_file_status_key), status)
+            putString(getString(R.string.saved_file_name_key), getString(fileName))
+            apply()
         }
     }
 
@@ -59,6 +74,8 @@ class MainActivity : AppCompatActivity() {
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+            showNotification()
+            saveStatus(R.string.radiobutton_option2, true)
         }
     }
 
@@ -82,16 +99,14 @@ class MainActivity : AppCompatActivity() {
             val notificationChannel = NotificationChannel(
                     channelId,
                     channelName,
-                    // TODO: Step 2.4 change importance
                     NotificationManager.IMPORTANCE_HIGH
             )
-                    // TODO: Step 2.6 disable badges for this channel
                     .apply {
                         setShowBadge(false)
                     }
 
             notificationChannel.enableLights(true)
-            notificationChannel.lightColor = Color.RED
+            notificationChannel.lightColor = Color.BLUE
             notificationChannel.enableVibration(true)
             notificationChannel.description = getString(R.string.notification_description)
 
@@ -101,7 +116,6 @@ class MainActivity : AppCompatActivity() {
             notificationManager.createNotificationChannel(notificationChannel)
 
         }
-        // TODO: Step 1.6 END create channel
     }
 
     companion object {
